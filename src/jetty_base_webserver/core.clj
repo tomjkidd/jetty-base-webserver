@@ -54,12 +54,16 @@
 
   Serves as a starting point for how to configure a more ellaborate server."
   []
-  (create-server {:http-handler defaults/default-http-handler
-                  :ws-handler-map {"/ws/default" defaults/default-ws-handler}
-                  :port 3001
-                  :join? true
-                  :ws-timeout-sec 300
-                  :on-stop-server (fn [state] state)}))
+  (let [port (config/get conf :ws-port)
+        join? (config/get conf :join?)
+        ws-path (config/get conf :ws-path)
+        ws-timeout-sec (config/get conf :ws-timeout-sec)]
+    (create-server {:http-handler defaults/default-http-handler
+                    :ws-handler-map {ws-path defaults/default-ws-handler}
+                    :port port
+                    :join? join?
+                    :ws-timeout-sec ws-timeout-sec
+                    :on-stop-server (fn [state] state)})))
 
 (defn -main
   [& args]

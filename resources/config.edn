@@ -1,1 +1,5 @@
-{:test "not real data"}
+{:join? true
+ :ws-host "localhost"
+ :ws-port 3001
+ :ws-path "/ws/default/"
+ :ws-timeout-sec 300}
